@@ -1,0 +1,161 @@
+[
+  {
+    "marca": "Chevrolet", "modelo": "Sail", "nombre_color": "Switchblade Silver", "codigo_pintura": "GAN", "valor_hex": "D1D1D1"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Sail", "nombre_color": "Summit White", "codigo_pintura": "GAZ", "valor_hex": "FFFFFF"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Sail", "nombre_color": "Galaxy Blue", "codigo_pintura": "GIS", "valor_hex": "2B3E5B"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Sail", "nombre_color": "Peppercorn Red", "codigo_pintura": "GCS", "valor_hex": "8B0000"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Onix", "nombre_color": "Black Meet Kettle", "codigo_pintura": "GB0", "valor_hex": "1E1E1E"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Onix", "nombre_color": "Abalone White", "codigo_pintura": "G1W", "valor_hex": "F5F5DC"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Onix", "nombre_color": "Red-E Or Not", "codigo_pintura": "G1E", "valor_hex": "D41A2D"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Spark", "nombre_color": "Olympic White", "codigo_pintura": "50U", "valor_hex": "F8F8F8"
+  },
+  {
+    "marca": "Chevrolet", "modelo": "Spark", "nombre_color": "Carbon Flash Metallic", "codigo_pintura": "GAR", "valor_hex": "333333"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Swift", "nombre_color": "Burning Red Pearl", "codigo_pintura": "ZWP", "valor_hex": "9F1E22"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Swift", "nombre_color": "Speedy Blue Metallic", "codigo_pintura": "ZWG", "valor_hex": "0059B3"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Swift", "nombre_color": "Super Black Pearl", "codigo_pintura": "ZMV", "valor_hex": "1C1C1C"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Swift", "nombre_color": "Premium Silver Metallic", "codigo_pintura": "ZNC", "valor_hex": "C5C5C5"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Baleno", "nombre_color": "Arctic White", "codigo_pintura": "26U", "valor_hex": "F7F7F7"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Baleno", "nombre_color": "Premium Urban Blue", "codigo_pintura": "ZUD", "valor_hex": "1E2A4D"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Grand Vitara", "nombre_color": "Silky Silver Metallic", "codigo_pintura": "Z2S", "valor_hex": "C0C0C0"
+  },
+  {
+    "marca": "Suzuki", "modelo": "Grand Vitara", "nombre_color": "Bluish Black Pearl", "codigo_pintura": "ZJ3", "valor_hex": "0E0E1F"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Accent", "nombre_color": "Sleek Silver", "codigo_pintura": "RHM", "valor_hex": "D3D3D3"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Accent", "nombre_color": "Phantom Black", "codigo_pintura": "NKA", "valor_hex": "111111"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Accent", "nombre_color": "Crystal White", "codigo_pintura": "PGU", "valor_hex": "FCFCFC"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Tucson", "nombre_color": "White Cream", "codigo_pintura": "YAC", "valor_hex": "F3EAD3"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Tucson", "nombre_color": "Ash Black", "codigo_pintura": "RBS", "valor_hex": "252525"
+  },
+  {
+    "marca": "Hyundai", "modelo": "Santa Fe", "nombre_color": "Titanium Silver", "codigo_pintura": "T6S", "valor_hex": "B7B7B7"
+  },
+  {
+    "marca": "Toyota", "modelo": "Yaris", "nombre_color": "Super White II", "codigo_pintura": "040", "valor_hex": "F0F0F0"
+  },
+  {
+    "marca": "Toyota", "modelo": "Yaris", "nombre_color": "Black Mica", "codigo_pintura": "209", "valor_hex": "0D0D0D"
+  },
+  {
+    "marca": "Toyota", "modelo": "Yaris", "nombre_color": "Silver Metallic", "codigo_pintura": "1F7", "valor_hex": "D0D0D0"
+  },
+  {
+    "marca": "Toyota", "modelo": "Hilux", "nombre_color": "Glacier White", "codigo_pintura": "058", "valor_hex": "FBFBFB"
+  },
+  {
+    "marca": "Toyota", "modelo": "Hilux", "nombre_color": "Nebula Blue", "codigo_pintura": "8X2", "valor_hex": "1F3A93"
+  },
+  {
+    "marca": "Toyota", "modelo": "RAV4", "nombre_color": "Barcelona Red", "codigo_pintura": "3R3", "valor_hex": "C70040"
+  },
+  {
+    "marca": "Toyota", "modelo": "RAV4", "nombre_color": "Blizzard Pearl", "codigo_pintura": "070", "valor_hex": "F5F5F5"
+  },
+  {
+    "marca": "Nissan", "modelo": "Versa", "nombre_color": "Brilliant Silver", "codigo_pintura": "K23", "valor_hex": "E0E0E0"
+  },
+  {
+    "marca": "Nissan", "modelo": "Versa", "nombre_color": "Super Black", "codigo_pintura": "KH3", "valor_hex": "0A0A0A"
+  },
+  {
+    "marca": "Nissan", "modelo": "Kicks", "nombre_color": "Aspen White", "codigo_pintura": "QAK", "valor_hex": "F4F4F4"
+  },
+  {
+    "marca": "Nissan", "modelo": "Qashqai", "nombre_color": "Pearl Black", "codigo_pintura": "Z11", "valor_hex": "2B2B2B"
+  },
+  {
+    "marca": "Nissan", "modelo": "NP300", "nombre_color": "Cayenne Red", "codigo_pintura": "A32", "valor_hex": "9E2A2B"
+  },
+  {
+    "marca": "Fiat", "modelo": "Brava", "nombre_color": "Grigio Steel", "codigo_pintura": "647", "valor_hex": "8C9293"
+  },
+  {
+    "marca": "Fiat", "modelo": "Brava", "nombre_color": "Rosso Tiziano", "codigo_pintura": "199", "valor_hex": "A62A34"
+  },
+  {
+    "marca": "Fiat", "modelo": "Brava", "nombre_color": "Nero", "codigo_pintura": "601", "valor_hex": "101010"
+  },
+  {
+    "marca": "Fiat", "modelo": "Brava", "nombre_color": "Azzurro Astrale", "codigo_pintura": "423", "valor_hex": "2F6F99"
+  },
+  {
+    "marca": "Fiat", "modelo": "Brava", "nombre_color": "Verde Garden", "codigo_pintura": "377", "valor_hex": "004225"
+  },
+  {
+    "marca": "Ford", "modelo": "Ranger", "nombre_color": "Oxford White", "codigo_pintura": "YZ", "valor_hex": "F9F9F9"
+  },
+  {
+    "marca": "Ford", "modelo": "Ranger", "nombre_color": "Shadow Black", "codigo_pintura": "G1", "valor_hex": "0A0A0A"
+  },
+  {
+    "marca": "Ford", "modelo": "Ranger", "nombre_color": "Conquer Grey", "codigo_pintura": "M3", "valor_hex": "6E7F8B"
+  },
+  {
+    "marca": "Ford", "modelo": "Ranger", "nombre_color": "Race Red", "codigo_pintura": "PQ", "valor_hex": "FF0000"
+  },
+  {
+    "marca": "Ford", "modelo": "Explorer", "nombre_color": "Agate Black", "codigo_pintura": "UM", "valor_hex": "1B1B1B"
+  },
+  {
+    "marca": "Ford", "modelo": "Explorer", "nombre_color": "Star White", "codigo_pintura": "AZ", "valor_hex": "F3F3F3"
+  },
+  {
+    "marca": "Ford", "modelo": "Explorer", "nombre_color": "Iconic Silver", "codigo_pintura": "JS", "valor_hex": "D3D3D3"
+  },
+  {
+    "marca": "Ford", "modelo": "F-150", "nombre_color": "Velocity Blue", "codigo_pintura": "E7", "valor_hex": "0033CC"
+  },
+  {
+    "marca": "Ford", "modelo": "F-150", "nombre_color": "Rapid Red", "codigo_pintura": "D4", "valor_hex": "C41E3A"
+  },
+  {
+    "marca": "Ford", "modelo": "Fiesta", "nombre_color": "Moondust Silver", "codigo_pintura": "ZJ", "valor_hex": "B7B7B7"
+  },
+  {
+    "marca": "Ford", "modelo": "Fiesta", "nombre_color": "Panther Black", "codigo_pintura": "JAYC", "valor_hex": "222222"
+  },
+  {
+    "marca": "Ford", "modelo": "Focus", "nombre_color": "Frozen White", "codigo_pintura": "Z2", "valor_hex": "F5F5F5"
+  },
+  {
+    "marca": "Ford", "modelo": "Focus", "nombre_color": "Magnetic", "codigo_pintura": "J7", "valor_hex": "4B4B4B"
+  }
+]
