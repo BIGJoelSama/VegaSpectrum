@@ -12,7 +12,20 @@
           "package_name": "com.example.vega_spectrum"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "82823111595-pacorinl31tn5tih8ktke8jm2eaubqvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vega_spectrum",
+            "certificate_hash": "2d8f647af44f01ef7874eef402347ae4e88b83d7"
+          }
+        },
+        {
+          "client_id": "82823111595-vo1oqfo7m34ut5tls44teamfubldfsq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCjtgNTOh55qGMllB_mKdeO9zoM-UXKMaA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82823111595-vo1oqfo7m34ut5tls44teamfubldfsq6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82823111595-76j92kt3l0sqfvqsucijsbglqcoi0gms.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vegaSpectrum"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "com.example.vega_spectrum_v2"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "82823111595-vo1oqfo7m34ut5tls44teamfubldfsq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCjtgNTOh55qGMllB_mKdeO9zoM-UXKMaA"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82823111595-vo1oqfo7m34ut5tls44teamfubldfsq6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82823111595-76j92kt3l0sqfvqsucijsbglqcoi0gms.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vegaSpectrum"
+              }
+            }
+          ]
         }
       }
     }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeScreen extends StatefulWidget {
   final String selectedBrand;
@@ -46,26 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mounted) setState(() {});
   }
 
+  // ... (Todas las funciones de lógica: _captureAndProcess, _saveScanToHistory, _findClosestPaintCode, etc. no cambian) ...
   Future<void> _captureAndProcess() async {
-    // Esta función no necesita cambios
     if (_cameraController == null || !_cameraController!.value.isInitialized) return;
     try {
-      setState(() {
-        _isSearching = true;
-        _statusText = 'Analizando color...';
-        _paintCodeData = null;
-      });
+      setState(() { _isSearching = true; _statusText = 'Analizando color...'; _paintCodeData = null; });
       final image = await _cameraController!.takePicture();
       final imageFile = File(image.path);
-      final paletteGenerator = await PaletteGenerator.fromImageProvider(
-        FileImage(imageFile),
-        maximumColorCount: 20,
-      );
+      final paletteGenerator = await PaletteGenerator.fromImageProvider(FileImage(imageFile), maximumColorCount: 20);
       final dominantColor = paletteGenerator.dominantColor?.color;
       if (dominantColor != null) {
-        setState(() {
-          _statusText = 'Buscando en ${widget.selectedBrand}... 🔍';
-        });
+        setState(() { _statusText = 'Buscando en ${widget.selectedBrand}... 🔍'; });
         await _findClosestPaintCode(dominantColor);
       } else {
         setState(() => _statusText = 'No se pudo detectar un color.');
@@ -78,16 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // --- CAMBIO CLAVE 1: Añadimos de nuevo la función para guardar ---
   Future<void> _saveScanToHistory(Map<String, dynamic> paintData) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
     try {
       await FirebaseFirestore.instance.collection('scan_history').add({
+        'idUsuario': user.uid,
         'marca': paintData['marca'],
         'modelo': paintData['modelo'] ?? widget.selectedModel,
         'nombre_color': paintData['nombre_color'],
         'codigo_pintura': paintData['codigo_pintura'],
         'valor_hex': paintData['valor_hex'],
-        'scanDate': Timestamp.now(), // Guarda la fecha y hora del escaneo
+        'scanDate': Timestamp.now(),
       });
       print(">>> Resultado guardado en el historial.");
     } catch (e) {
@@ -105,7 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() => _statusText = 'No hay datos para la marca "${widget.selectedBrand}".');
         return;
       }
-      
       double minDistance = double.infinity;
       DocumentSnapshot? bestMatch;
       for (var doc in snapshot.docs) {
@@ -120,22 +113,15 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         }
       }
-
       if (bestMatch != null && minDistance < _colorMatchThreshold) {
         final paintData = bestMatch.data() as Map<String, dynamic>;
          if (mounted) {
-          setState(() {
-            _paintCodeData = paintData;
-            _statusText = '¡Coincidencia encontrada!';
-          });
+          setState(() { _paintCodeData = paintData; _statusText = '¡Coincidencia encontrada!'; });
         }
-        // --- CAMBIO CLAVE 2: Llamamos a la función de guardado ---
         await _saveScanToHistory(paintData);
       } else {
          if (mounted) {
-          setState(() {
-            _statusText = 'No se encontraron coincidencias confiables.';
-          });
+          setState(() { _statusText = 'No se encontraron coincidencias confiables.'; });
         }
       }
     } catch (e) {
@@ -145,8 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
       print('Error en Firestore: $e');
     }
   }
-
-  // (El resto del código no cambia)
 
   double _calculateColorDifference(Color c1, Color c2) {
     return sqrt(pow(c1.red - c2.red, 2) + pow(c1.green - c2.green, 2) + pow(c1.blue - c2.blue, 2));
@@ -171,6 +155,16 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Escanear: ${widget.selectedBrand}'),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.white),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            tooltip: 'Cerrar sesión',
+          ),
+        ],
       ),
       extendBodyBehindAppBar: true, 
       body: FutureBuilder<void>(
@@ -186,24 +180,36 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // --- ✅ FUNCIÓN DE UI ACTUALIZADA ---
   Widget buildScannerUI() {
+    if (!_cameraController!.value.isInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     final size = MediaQuery.of(context).size;
-    final deviceRatio = size.width / size.height;
-    final cameraRatio = _cameraController!.value.aspectRatio;
+    
+    // Esta es la fórmula oficial para calcular la escala correcta
+    // y rellenar la pantalla (BoxFit.cover)
+    var scale = 1.0;
+    try {
+      scale = 1 / (_cameraController!.value.aspectRatio * size.aspectRatio);
+    } catch (_) {
+      // Maneja el caso en que el aspect ratio aún no esté listo
+      print("Error al calcular el aspect ratio, usando escala 1.0");
+    }
 
     return Stack(
       fit: StackFit.expand,
       alignment: Alignment.center,
       children: <Widget>[
+        // --- CAMBIO CLAVE: Lógica de escalado oficial ---
         Transform.scale(
-          scale: cameraRatio / deviceRatio,
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: cameraRatio,
-              child: CameraPreview(_cameraController!),
-            ),
-          ),
+          scale: scale,
+          alignment: Alignment.topCenter, // Asegura que se alinee desde el centro
+          child: CameraPreview(_cameraController!),
         ),
+        
+        // El resto de la UI (mira y panel inferior) no cambia
         Container(
           width: 100,
           height: 100,

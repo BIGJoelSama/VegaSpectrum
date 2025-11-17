@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:vega_spectrum_v2/screens/home_screen.dart';
 import 'package:vega_spectrum_v2/widgets/glass_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SelectionScreen extends StatefulWidget {
   const SelectionScreen({super.key});
@@ -12,23 +13,54 @@ class SelectionScreen extends StatefulWidget {
 }
 
 class _SelectionScreenState extends State<SelectionScreen> {
+  // --- CAMBIO CLAVE 1: Nueva Estructura de Datos ---
+  // Ahora usamos un mapa anidado. Cada modelo tiene una lista [año_inicio, año_fin].
+  final Map<String, Map<String, List<int>>> carData = {
+    'Toyota': {
+      'Corolla': [1995, 2024],
+      'Yaris': [1999, 2024],
+      'Hilux': [1995, 2024],
+      'RAV4': [1995, 2024]
+    },
+    'Chevrolet': {
+      'Spark': [2007, 2022],
+      'Cruze': [2008, 2024],
+      'Onix': [2012, 2024],
+      'Silverado': [1999, 2024]
+    },
+    'Hyundai': {
+      'Accent': [1995, 2024],
+      'Tucson': [2004, 2024],
+      'Santa Fe': [2000, 2024]
+    },
+    'Ford': {
+      'Fiesta': [1995, 2019],
+      'Focus': [1998, 2024],
+      'Ranger': [1995, 2024],
+      'Explorer': [1995, 2024]
+    },
+    'Nissan': {
+      'Versa': [2006, 2024],
+      'Sentra': [1995, 2024],
+      'Kicks': [2016, 2024],
+      'Frontier': [1998, 2024]
+    },
+    'Fiat': {
+      'Mobi': [2016, 2024],
+      'Cronos': [2018, 2024],
+      'Argo': [2017, 2024],
+      'Strada': [1996, 2024],
+      'Brava': [1995, 2001]
+    }
+  };
+
   String? _selectedBrand;
   String? _selectedModel;
   String? _selectedYear;
 
-  final Map<String, List<String>> carData = {
-    'Toyota': ['Corolla', 'Yaris', 'Hilux', 'RAV4'],
-    'Chevrolet': ['Spark', 'Cruze', 'Onix', 'Silverado'],
-    'Hyundai': ['Accent', 'Tucson', 'Santa Fe'],
-    'Ford': ['Fiesta', 'Focus', 'Ranger', 'Explorer'],
-    'Nissan': ['Versa', 'Sentra', 'Kicks', 'Frontier'],
-    'Fiat': ['Mobi', 'Cronos', 'Argo', 'Strada', 'Brava']
-  };
-
   List<String> _availableModels = [];
-  final List<String> _years = List.generate(2025 - 1995, (index) => (2024 - index).toString());
+  List<String> _availableYears = []; // <-- Nueva lista para los años
 
-  // Función de navegación al escáner (sin cambios)
   void _navigateToScanner() {
     if (_selectedBrand != null && _selectedModel != null && _selectedYear != null) {
       Navigator.push(
@@ -48,9 +80,50 @@ class _SelectionScreenState extends State<SelectionScreen> {
     }
   }
 
+  // --- CAMBIO CLAVE 2: Lógica para generar la lista de años ---
+  void _updateAvailableYears(String? brand, String? model) {
+    if (brand == null || model == null) {
+      _availableYears = [];
+      return;
+    }
+    
+    // Busca el rango de años [año_inicio, año_fin] en nuestro mapa
+    final yearRange = carData[brand]?[model];
+    
+    if (yearRange != null && yearRange.length == 2) {
+      final int startYear = yearRange[0];
+      final int endYear = yearRange[1];
+      
+      // Genera la lista de años (ej. de 2024 a 2005)
+      _availableYears = List.generate(
+        endYear - startYear + 1,
+        (index) => (endYear - index).toString()
+      );
+    } else {
+      // Si no hay datos, usa una lista por defecto (opcional)
+      _availableYears = List.generate(2025 - 1995, (index) => (2024 - index).toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: const Text('VegaSpectrum'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            tooltip: 'Cerrar sesión',
+          ),
+        ],
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -79,24 +152,54 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Identifica el Vehículo', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center),
+                    const SizedBox(height: kToolbarHeight), 
+                    const Text(
+                      'Identifica el Vehículo',
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
                     const SizedBox(height: 50),
+
+                    // --- Dropdown de MARCA ---
                     _buildDropdown('Marca', _selectedBrand, carData.keys.toList(), (value) {
                       setState(() {
                         _selectedBrand = value;
+                        // Actualiza la lista de modelos
+                        _availableModels = carData[value]?.keys.toList() ?? [];
+                        // Resetea las selecciones de modelo y año
                         _selectedModel = null;
-                        _availableModels = carData[value] ?? [];
+                        _availableYears = [];
+                        _selectedYear = null;
                       });
                     }),
                     const SizedBox(height: 20),
-                    _buildDropdown('Modelo', _selectedModel, _availableModels, _selectedBrand == null ? null : (value) {
-                      setState(() => _selectedModel = value);
-                    }),
+
+                    // --- Dropdown de MODELO ---
+                    _buildDropdown('Modelo', _selectedModel, _availableModels, 
+                      // Se deshabilita si no hay marca
+                      _selectedBrand == null ? null : (value) {
+                        setState(() {
+                          _selectedModel = value;
+                          // Actualiza la lista de años
+                          _updateAvailableYears(_selectedBrand, value);
+                          // Resetea la selección de año
+                          _selectedYear = null;
+                        });
+                      }
+                    ),
                     const SizedBox(height: 20),
-                    _buildDropdown('Año', _selectedYear, _years, (value) {
-                      setState(() => _selectedYear = value);
-                    }),
-                    const SizedBox(height: 40),
+
+                    // --- Dropdown de AÑO ---
+                    _buildDropdown('Año', _selectedYear, _availableYears,
+                      // Se deshabilita si no hay modelo
+                      _selectedModel == null ? null : (value) {
+                        setState(() {
+                          _selectedYear = value;
+                        });
+                      }
+                    ),
+                    const SizedBox(height: 60),
+
                     ElevatedButton.icon(
                       onPressed: _navigateToScanner,
                       icon: const Icon(Icons.camera_alt_outlined),
@@ -108,7 +211,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         foregroundColor: Colors.black,
                       ),
                     ),
-                    // ✅ NOTA: Eliminamos el TextButton de la galería
                   ],
                 ),
               ),
@@ -119,6 +221,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
     );
   }
 
+  // (El widget _buildDropdown no cambia)
   Widget _buildDropdown(String hint, String? value, List<String> items, ValueChanged<String?>? onChanged) {
     return GlassContainer(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),

@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: '>=3.2.3 <4.0.0' # <-- SDK con null safety
 
 dependencies:
   flutter:
@@ -19,7 +19,7 @@ dependencies:
   shared_preferences: ^2.2.3
   camera: ^0.10.5+9
   palette_generator: ^0.3.3
-
+  google_sign_in: ^6.2.1 # <-- La dependencia que acabamos de añadir
 
 dev_dependencies:
   flutter_test:
